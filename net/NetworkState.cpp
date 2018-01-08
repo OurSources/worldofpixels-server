@@ -4,7 +4,9 @@ NetworkState::NetworkState(uWS::Hub & h, std::uint32_t maxPayload,
 		NetworkState * upgrade, NetworkState * downgrade)
 : group(h.createGroup<uWS::SERVER>(uWS::PERMESSAGE_DEFLATE | uWS::NO_DELAY, maxPayload)),
   upgradeState(upgrade),
-  downgradeState(downgrade) { };
+  downgradeState(downgrade) {
+	group->listen(uWS::TRANSFERS);
+};
 
 NetworkState::~NetworkState() {
 	group->terminate();

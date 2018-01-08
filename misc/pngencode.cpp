@@ -1,5 +1,5 @@
 #include "pngencode.hpp"
-#include <cstring>
+#include <algorithm>
 #include <byteswap.h>
 #include <zlib.h>
 
@@ -48,9 +48,10 @@ std::unique_ptr<u8[]> CompressPNG(void *img, int w, int h, int numchans, u32 &le
 			0x49,0x44,0x41,0x54
 		};
 		*(u32*)(pnghdr + 29) = bswap_32(crc32(0, pnghdr + 12, 17));
-		std::memcpy(zbuf, pnghdr, 41);
+		std::copy_n(pnghdr, 41, zbuf);
 	}
-	std::memcpy(z.next_out, "\0\0\0\0\0\0\0\0\x49\x45\x4e\x44\xae\x42\x60\x82", 16); // footer
+	static const char pngFooter[] = "\0\0\0\0\0\0\0\0\x49\x45\x4e\x44\xae\x42\x60\x82";
+	std::copy_n(pngFooter, sizeof(pngFooter), z.next_out);
 	*(u32*)z.next_out = bswap_32(crc32(0, zbuf + 41 - 4, len_out + 4));
 	deflateEnd(&z);
 	len_out += 57;

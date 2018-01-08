@@ -3,11 +3,11 @@
 #include <misc/pngencode.hpp>
 #include <misc/BufferHelper.hpp>
 
-#include <cstring>
+#include <algorithm>
 #include <limits>
 
 Chunk::Pixel::Pixel(std::uint8_t r, std::uint8_t g, std::uint8_t b)
-: rgb(b >> 3 & 0x1f
+: rgb((b >> 3 & 0x1f)
 	| (g >> 2 & 0x3f) << 5
 	| (r >> 3 & 0x1f) << 11) { }
 
@@ -53,7 +53,7 @@ std::size_t Chunk::serialize(std::uint8_t * arr) {
 	
 	arr += BufferHelper::writeLE(arr, x);
 	arr += BufferHelper::writeLE(arr, y);
-	std::memcpy(arr, &pixels[0], compressedImageSize);
+	std::copy_n(compressedImage.get(), compressedImageSize, arr);
 	arr += compressedImageSize;
 	
 	return arr - start;
