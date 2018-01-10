@@ -1,0 +1,6 @@
+[submodule "lib/uWebSockets"]
+	path = lib/uWebSockets
+	url = https://github.com/uNetworking/uWebSockets
+[submodule "lib/sol2"]
+	path = lib/sol2
+	url = https://github.com/ThePhD/sol2
