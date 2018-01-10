@@ -27,7 +27,7 @@ public:
 
 		};
 		
-		VerificationState(uWS::Hub & h, NetworkState * upgrade, sol::state &);
+		VerificationState(uWS::Hub &, NetworkState * upgrade, sol::state &);
 
 		void addVerificationStep(std::function<void(Ws *, std::function<void(bool)>)>);
 
@@ -37,6 +37,10 @@ public:
 	
 	class LoginState : public NetworkState {
 		Logger log;
+		
+	public:
+		LoginState(uWS::Hub &, NetworkState * upgrade);
+
 		
 	};
 	
@@ -53,7 +57,7 @@ public:
 	LobbyState lobbyState;
 	PlayState playState;
 	
-	Protocol(sol::state & luaState);
+	Protocol(uWS::Hub &, sol::state & luaState);
 
 	NetworkState & getInitialNetworkState();
 };

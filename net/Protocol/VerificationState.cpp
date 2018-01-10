@@ -21,7 +21,7 @@ Protocol::VerificationState::VerificationState(uWS::Hub & h, NetworkState * upgr
 	});
 }
 
-// function (ws, onCompletion);
+// function (SocketProperties, onCompletion);
 
 void Protocol::VerificationState::onStepCompleted(Ws * ws, bool success = true) {
 	Storage * s = static_cast<Storage *>(ws->getUserData());

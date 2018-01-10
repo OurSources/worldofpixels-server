@@ -15,4 +15,4 @@ g: uWS $(ALLOBJS)
 	$(CXX) $(ALLOBJS) -Wall -std=gnu++0x -Og -g $(LIBS) -o $(TARGET)
 
 uWS:
-	$(MAKE) -C uWebSockets
+	$(MAKE) -C lib/uWebSockets -f ../uWebSockets.mk

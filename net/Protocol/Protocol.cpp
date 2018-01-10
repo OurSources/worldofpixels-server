@@ -1,8 +1,10 @@
 #include "Protocol.hpp"
 
-Protocol::Protocol(sol::state & luaState)
+Protocol::Protocol(uWS::Hub & h, sol::state & luaState)
+verifState(h, loginState, luaState),
+loginState(),
 { }
 
-Protocol::getFirstNetworkState() {
-	
+NetworkState & Protocol::getInitialNetworkState() {
+	return verifState;
 }

@@ -15,6 +15,7 @@ class Server {
 public:
 	Server(std::uint16_t port, std::string baseDir);
 	
+	void socketConnected(SocketProperties &);
 	void socketDisconnected(SocketProperties &);
 
 	void run();
